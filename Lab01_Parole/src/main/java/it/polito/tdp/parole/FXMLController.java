@@ -28,18 +28,50 @@ public class FXMLController {
 
     @FXML
     private TextArea txtResult;
+    
+    @FXML
+    private TextArea txtTime;
 
     @FXML
     private Button btnReset;
+    
+    @FXML
+    private Button btnCancella;
 
     @FXML
     void doInsert(ActionEvent event) {
-    	// TODO
+    	long start=System.nanoTime();
+    	txtResult.clear();
+    	elenco.addParola(txtParola.getText());
+    	for(String s : elenco.getElenco()) {    		
+    		txtResult.appendText(s+"\n");
+    	}
+    	txtParola.clear();
+    	long fine=System.nanoTime();
+    	txtTime.appendText("L'operazione di inserimento ha impiegato "+Long.toString(fine-start)+" ns"+"\n");
+    	
     }
 
     @FXML
     void doReset(ActionEvent event) {
-    	// TODO
+    	long start=System.nanoTime();
+    	elenco.reset();
+    	txtResult.clear();
+    	long fine=System.nanoTime();
+    	txtTime.appendText("L'operazione di reset ha impiegato "+Long.toString(fine-start)+" ns"+"\n");
+    }
+    
+    @FXML
+    void doCancella(ActionEvent event) {
+    	long start=System.nanoTime();
+    	elenco.cancella(txtResult.getSelectedText());
+    	txtResult.clear();
+    	for(String s : elenco.getElenco()) {    		
+    		txtResult.appendText(s+"\n");
+    	}
+    	txtParola.clear();
+    	long fine=System.nanoTime();
+    	txtTime.appendText("L'operazione di cancellamento ha impiegato "+Long.toString(fine-start)+" ns"+"\n");
     }
 
     @FXML
